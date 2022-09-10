@@ -10,6 +10,8 @@ import UserNotifications
 
 class NotificationsManager: ObservableObject {
 
+// MARK: Notification settings
+
     enum TimeUnit: String {
         case daily, weekly
     }
@@ -27,11 +29,21 @@ class NotificationsManager: ObservableObject {
     @Published var dayOfWeek: DayOfWeek = .monday
     @Published var notificationTime = Calendar.current.date(bySettingHour: 10, minute: 30, second: 0, of: Date()) ?? .now
 
+// MARK: Notification center
+
+    let center = UNUserNotificationCenter.current()
+
     func requestAuthorization() {
-      UNUserNotificationCenter.current()
-        .requestAuthorization(options: [.alert, .sound, .badge]) { success, error  in
+
+        if notificationsEnabled == false {
+            center.getNotificationSettings { settings in
+
+            }
+        }
+        center.requestAuthorization(options: [.alert, .sound, .badge]) { success, error  in
             if success {
-                print ("all set")
+                print ("Notification request granted")
+//                the below needs to be replaced with a string of advice from some sort of AdviceManager
                 self.addNotification(for: "my advice")
             } else if let error = error {
                 print(error.localizedDescription)
@@ -41,7 +53,6 @@ class NotificationsManager: ObservableObject {
     }
 
     func addNotification(for advice: String) {
-        let center = UNUserNotificationCenter.current()
 
         let addRequest = {
             let content = UNMutableNotificationContent()
@@ -57,7 +68,7 @@ class NotificationsManager: ObservableObject {
 
 
             let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-            center.add(request)
+            self.center.add(request)
         }
 
         center.getNotificationSettings { settings in
