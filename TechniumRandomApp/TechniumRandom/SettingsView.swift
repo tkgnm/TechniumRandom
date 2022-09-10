@@ -9,16 +9,15 @@ import SwiftUI
 
 struct SettingsView: View {
 
+    @Environment(\.scenePhase) private var scenePhase
+
     @StateObject var notificationsManager = NotificationsManager()
 
     var body: some View {
         NavigationView {
             Form {
                 Section {
-                    Toggle("Turn notifications on", isOn: $notificationsManager.notificationsEnabled.animation())
-
-                    if notificationsManager.notificationsEnabled {
-
+                    if !notificationsManager.notificationsDisabled {
                         Picker("What frequency", selection: $notificationsManager.frequency.animation()) {
                             ForEach(notificationsManager.timeUnits, id: \.self) { unit in
                                 Text(unit.rawValue.capitalized)
@@ -35,14 +34,18 @@ struct SettingsView: View {
                         }
 
                         DatePicker("What time", selection: $notificationsManager.notificationTime.animation(), displayedComponents: .hourAndMinute)
+                    } else {
+                        Text("You have disabled notifications. To change this, go to settings. ")
                     }
-
                 } header: {
-                    Text("Notifications")
+                    Text("notifications")
                 }
             }
-            .onChange(of: notificationsManager.notificationsEnabled) { _ in
-                notificationsManager.requestAuthorization()
+        }
+        .disabled(notificationsManager.notificationsDisabled)
+        .onChange(of: scenePhase) { newValue in
+            if newValue == .active {
+                notificationsManager.checkAuthorisationStatus()
             }
         }
     }
