@@ -37,6 +37,12 @@ struct SettingsView: View {
                     } else {
                         Text("You have disabled notifications. To change this, go to settings. ")
                     }
+
+                    Button {
+                        notificationsManager.scheduleNotification()
+                    } label: {
+                        Text("Update notifications")
+                    }
                 } header: {
                     Text("notifications")
                 }
