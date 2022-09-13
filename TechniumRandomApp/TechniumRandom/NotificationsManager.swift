@@ -88,15 +88,27 @@ class NotificationsManager: ObservableObject {
 
     func scheduleNotification() {
         let content = UNMutableNotificationContent()
-        content.title = "Feed the cat"
-        content.subtitle = "It looks hungry"
+        content.title = "Kev sez"
+        content.subtitle = "Swipe for a bit of advice"
         content.sound = UNNotificationSound.default
 
         // show this notification five seconds from now
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+//        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+
+        var dateComponents = Calendar.current.dateComponents([.weekday, .hour, .minute], from: notificationTime)
+
+//        I AM USING THIS WRONG
+        if frequency == .weekly {
+            dateComponents.weekday = (daysOfWeek.firstIndex(of: dayOfWeek) ?? 0) + 2
+            print(dateComponents.weekday)
+        } else {
+            dateComponents.weekday = .none
+        }
+
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
 
         // choose a random identifier
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: "kevID", content: content, trigger: trigger)
 
         // add our notification request
         UNUserNotificationCenter.current().add(request)
