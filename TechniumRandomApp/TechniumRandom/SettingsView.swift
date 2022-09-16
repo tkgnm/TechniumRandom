@@ -48,6 +48,8 @@ struct SettingsView: View {
                 }
             }
         }
+
+//        updates UI based on whether notifications are enabled or not
         .disabled(notificationsManager.notificationsDisabled)
         .onChange(of: scenePhase) { newValue in
             if newValue == .active {
