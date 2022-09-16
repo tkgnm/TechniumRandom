@@ -18,6 +18,7 @@
 		CF454CC428C8947700206C6B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF454CC328C8947700206C6B /* ContentView.swift */; };
 		CF8B65F728CBD0C100372CE2 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8B65F628CBD0C100372CE2 /* NotificationsManager.swift */; };
 		CF8B65F928CC2AEA00372CE2 /* AdviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8B65F828CC2AEA00372CE2 /* AdviceManager.swift */; };
+		CFA100AD28D490AB006869E3 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA100AC28D490AB006869E3 /* Notification.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		CF454CC328C8947700206C6B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CF8B65F628CBD0C100372CE2 /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
 		CF8B65F828CC2AEA00372CE2 /* AdviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdviceManager.swift; sourceTree = "<group>"; };
+		CFA100AC28D490AB006869E3 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				CF4007D328C7E89F00C7185D /* AboutView.swift */,
 				CF00D22428CA86C30045E36D /* SettingsView.swift */,
 				CF8B65F628CBD0C100372CE2 /* NotificationsManager.swift */,
+				CFA100AC28D490AB006869E3 /* Notification.swift */,
 				CF8B65F828CC2AEA00372CE2 /* AdviceManager.swift */,
 				CF2CF57D28C7DCE200277CF2 /* Assets.xcassets */,
 				CF4007D128C7E1D200C7185D /* 103stripped.txt */,
@@ -164,6 +167,7 @@
 				CF4007D428C7E89F00C7185D /* AboutView.swift in Sources */,
 				CF8B65F728CBD0C100372CE2 /* NotificationsManager.swift in Sources */,
 				CF2CF57C28C7DCE100277CF2 /* DiscoverView.swift in Sources */,
+				CFA100AD28D490AB006869E3 /* Notification.swift in Sources */,
 				CF454CC428C8947700206C6B /* ContentView.swift in Sources */,
 				CF8B65F928CC2AEA00372CE2 /* AdviceManager.swift in Sources */,
 				CF2CF57A28C7DCE100277CF2 /* TechniumRandomApp.swift in Sources */,
