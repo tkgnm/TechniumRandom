@@ -15,11 +15,9 @@ class AdviceManager: ObservableObject {
     init() {
 
         if let url = Bundle.main.url(forResource: "103stripped", withExtension: "txt") {
-
             if let techniumFile = try? String(contentsOf: url) {
-
                 let allLines = techniumFile.components(separatedBy: "\n")
-
+                
                 for line in allLines {
                     all.append(line)
                 }
@@ -33,6 +31,5 @@ class AdviceManager: ObservableObject {
     func randomTechnium() {
         current = all.randomElement() ?? all[0]
     }
-
 }
 

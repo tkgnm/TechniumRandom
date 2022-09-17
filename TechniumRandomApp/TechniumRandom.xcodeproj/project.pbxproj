@@ -67,13 +67,10 @@
 		CF2CF57828C7DCE100277CF2 /* TechniumRandom */ = {
 			isa = PBXGroup;
 			children = (
+				CFD80CA528D5E10900F3EE57 /* Views */,
 				CF2CF57928C7DCE100277CF2 /* TechniumRandomApp.swift */,
-				CF454CC328C8947700206C6B /* ContentView.swift */,
-				CF2CF57B28C7DCE100277CF2 /* DiscoverView.swift */,
-				CF4007D328C7E89F00C7185D /* AboutView.swift */,
-				CF00D22428CA86C30045E36D /* SettingsView.swift */,
-				CF8B65F628CBD0C100372CE2 /* NotificationsManager.swift */,
 				CFA100AC28D490AB006869E3 /* Notification.swift */,
+				CF8B65F628CBD0C100372CE2 /* NotificationsManager.swift */,
 				CF8B65F828CC2AEA00372CE2 /* AdviceManager.swift */,
 				CF2CF57D28C7DCE200277CF2 /* Assets.xcassets */,
 				CF4007D128C7E1D200C7185D /* 103stripped.txt */,
@@ -89,6 +86,17 @@
 				CF2CF58028C7DCE200277CF2 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		CFD80CA528D5E10900F3EE57 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CF454CC328C8947700206C6B /* ContentView.swift */,
+				CF2CF57B28C7DCE100277CF2 /* DiscoverView.swift */,
+				CF4007D328C7E89F00C7185D /* AboutView.swift */,
+				CF00D22428CA86C30045E36D /* SettingsView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

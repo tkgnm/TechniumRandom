@@ -7,6 +7,14 @@
 
 import Foundation
 
+enum DayOfWeek: String, Codable {
+    case monday, tuesday, wednesday, thursday, friday, saturday, sunday
+}
+
+enum TimeUnit: String, Codable {
+    case daily, weekly
+}
+
 struct Notification: Codable {
 
     var notificationTime: Date

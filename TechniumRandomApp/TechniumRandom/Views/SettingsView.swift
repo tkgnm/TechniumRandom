@@ -18,22 +18,22 @@ struct SettingsView: View {
             Form {
                 Section {
                     if !notificationsManager.notificationsDisabled {
-                        Picker("What frequency", selection: $notificationsManager.frequency.animation()) {
+                        Picker("What frequency", selection: $notificationsManager.notification.frequency.animation()) {
                             ForEach(notificationsManager.timeUnits, id: \.self) { unit in
                                 Text(unit.rawValue.capitalized)
                             }
                         }
                         .pickerStyle(.segmented)
 
-                        if notificationsManager.frequency == .weekly {
-                            Picker("What day", selection: $notificationsManager.dayOfWeek) {
+                        if notificationsManager.notification.frequency == .weekly {
+                            Picker("What day", selection: $notificationsManager.notification.dayOfWeek) {
                                 ForEach(notificationsManager.daysOfWeek, id: \.self) { day in
                                     Text(day.rawValue.capitalized)
                                 }
                             }
                         }
 
-                        DatePicker("What time", selection: $notificationsManager.notificationTime.animation(), displayedComponents: .hourAndMinute)
+                        DatePicker("What time", selection: $notificationsManager.notification.notificationTime.animation(), displayedComponents: .hourAndMinute)
                     } else {
                         Text("You have disabled notifications. To change this, go to settings. ")
                     }
