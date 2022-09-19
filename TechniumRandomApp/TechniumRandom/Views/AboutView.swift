@@ -46,9 +46,8 @@ struct AboutView: View {
                 for line in allLines {
                     if !line.isEmpty {
                         devs.append(line)
-                        devs.sort()
-
                     }
+                    devs.sort()
                 }
                 return
             }
