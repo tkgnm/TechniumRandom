@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CF00D22528CA86C30045E36D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF00D22428CA86C30045E36D /* SettingsView.swift */; };
+		CF2CC3F328D87AD00073C6DD /* NotificationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2CC3F228D87AD00073C6DD /* NotificationDelegate.swift */; };
 		CF2CF57A28C7DCE100277CF2 /* TechniumRandomApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2CF57928C7DCE100277CF2 /* TechniumRandomApp.swift */; };
 		CF2CF57C28C7DCE100277CF2 /* DiscoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2CF57B28C7DCE100277CF2 /* DiscoverView.swift */; };
 		CF2CF57E28C7DCE200277CF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF2CF57D28C7DCE200277CF2 /* Assets.xcassets */; };
@@ -23,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		CF00D22428CA86C30045E36D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		CF2CC3F228D87AD00073C6DD /* NotificationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDelegate.swift; sourceTree = "<group>"; };
 		CF2CF57628C7DCE100277CF2 /* TechniumRandom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TechniumRandom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF2CF57928C7DCE100277CF2 /* TechniumRandomApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TechniumRandomApp.swift; sourceTree = "<group>"; };
 		CF2CF57B28C7DCE100277CF2 /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 				CF2CF57928C7DCE100277CF2 /* TechniumRandomApp.swift */,
 				CFA100AC28D490AB006869E3 /* Notification.swift */,
 				CF8B65F628CBD0C100372CE2 /* NotificationsManager.swift */,
+				CF2CC3F228D87AD00073C6DD /* NotificationDelegate.swift */,
 				CF8B65F828CC2AEA00372CE2 /* AdviceManager.swift */,
 				CF2CF57D28C7DCE200277CF2 /* Assets.xcassets */,
 				CF4007D128C7E1D200C7185D /* 103stripped.txt */,
@@ -178,6 +181,7 @@
 				CFA100AD28D490AB006869E3 /* Notification.swift in Sources */,
 				CF454CC428C8947700206C6B /* ContentView.swift in Sources */,
 				CF8B65F928CC2AEA00372CE2 /* AdviceManager.swift in Sources */,
+				CF2CC3F328D87AD00073C6DD /* NotificationDelegate.swift in Sources */,
 				CF2CF57A28C7DCE100277CF2 /* TechniumRandomApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
