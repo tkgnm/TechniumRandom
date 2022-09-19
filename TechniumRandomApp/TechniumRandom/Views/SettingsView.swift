@@ -37,8 +37,9 @@ struct SettingsView: View {
                         Button {
                             notificationsManager.scheduleNotification()
                         } label: {
-                            Text("Update notifications")
+                            Text(notificationsManager.notificationNeedsUpdating ? "Update notifications" : "Notifications up to date")
                         }
+                        .disabled(!notificationsManager.notificationNeedsUpdating)
                     } else {
                         Text("You have disabled notifications. To change this, go to Settings > Kev Sez > Notifications and ensure that Allow Notifications is enabled")
                     }
