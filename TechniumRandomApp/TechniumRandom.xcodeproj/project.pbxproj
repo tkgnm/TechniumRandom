@@ -80,6 +80,7 @@
 				CF2CC3F228D87AD00073C6DD /* NotificationDelegate.swift */,
 				CF2CF57D28C7DCE200277CF2 /* Assets.xcassets */,
 				CF4007D128C7E1D200C7185D /* 103stripped.txt */,
+				CF454CC128C8913900206C6B /* guardianappsteam.txt */,
 				CF2CF57F28C7DCE200277CF2 /* Preview Content */,
 			);
 			path = TechniumRandom;
@@ -88,7 +89,6 @@
 		CF2CF57F28C7DCE200277CF2 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				CF454CC128C8913900206C6B /* guardianappsteam.txt */,
 				CF2CF58028C7DCE200277CF2 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";

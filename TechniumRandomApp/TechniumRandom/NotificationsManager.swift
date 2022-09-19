@@ -33,15 +33,15 @@ class NotificationsManager: ObservableObject {
         }
 
         // logic to check if notifications are enabled and if not disables the form
-        center.getNotificationSettings { settings in
-            switch settings.authorizationStatus {
-                case .denied:
-                    self.notificationsDisabled = true
-                default:
-                    //  the below function can only be performed ONCE, on the first time the app is opened
-                    self.requestAuthorisation()
-            }
-        }
+//        center.getNotificationSettings { settings in
+//            switch settings.authorizationStatus {
+//                case .denied:
+//                    self.notificationsDisabled = true
+//                default:
+//                    //  the below function can only be performed ONCE, on the first time the app is opened
+//                    self.requestAuthorisation()
+//            }
+//        }
     }
 
     func saveDate() {
@@ -57,11 +57,13 @@ class NotificationsManager: ObservableObject {
     //    a function that updates the UI based on whether the user has granted notificatins or not
     func checkAuthorisationStatus()  {
         center.getNotificationSettings { settings in
-            switch settings.authorizationStatus {
-                case .denied:
-                    self.notificationsDisabled = true
-                default:
-                    self.notificationsDisabled = false
+            DispatchQueue.main.async {
+                switch settings.authorizationStatus {
+                    case .denied:
+                        self.notificationsDisabled = true
+                    default:
+                        self.notificationsDisabled = false
+                }
             }
         }
     }

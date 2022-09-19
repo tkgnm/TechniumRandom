@@ -34,15 +34,15 @@ struct SettingsView: View {
                         }
 
                         DatePicker("What time", selection: $notificationsManager.notification.notificationTime.animation(), displayedComponents: .hourAndMinute)
+                        Button {
+                            notificationsManager.scheduleNotification()
+                        } label: {
+                            Text("Update notifications")
+                        }
                     } else {
-                        Text("You have disabled notifications. To change this, go to settings. ")
+                        Text("You have disabled notifications. To change this, go to Settings > Kev Sez > Notifications and ensure that Allow Notifications is enabled")
                     }
 
-                    Button {
-                        notificationsManager.scheduleNotification()
-                    } label: {
-                        Text("Update notifications")
-                    }
                 } header: {
                     Text("notifications")
                 }
@@ -50,6 +50,7 @@ struct SettingsView: View {
         }
 
 //        updates UI based on whether notifications are enabled or not
+        .onAppear(perform: notificationsManager.checkAuthorisationStatus)
         .disabled(notificationsManager.notificationsDisabled)
         .onChange(of: scenePhase) { newValue in
             if newValue == .active {

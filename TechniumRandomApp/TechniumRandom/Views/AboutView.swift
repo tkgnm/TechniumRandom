@@ -17,13 +17,13 @@ struct AboutView: View {
                 Text("Kev Sez")
                     .font(.title)
                     .padding()
-                Text("All advice you receive on this app was written by Kevin Kelly (b. 1952). This app aims to provide a simple interface for receiving Kevin's advice.")
+                Text("All advice you receive on this app was written by Kevin Kelly (b. 1952) and is avaiable for free on his website. This app aims to provide a simple interface for receiving Kevin's advice.")
                     .padding()
                 Text("[Kevin Kelly's website](https://kk.org)")
                 Text("Credits")
                     .font(.title2)
                     .padding()
-                Text("This app is dedicated to The Guardian's apps team whose wisdom I have been very fortunate to receive and without whom I would not have even made this app. Specifically, those people are:")
+                Text("This app is dedicated to The Guardian's apps team whose wisdom I have been very fortunate to receive. Specifically, those people are:")
                     .padding()
                 ForEach(devs, id: \.self) { dev in
                     Text(dev)
@@ -44,8 +44,11 @@ struct AboutView: View {
                 let allLines = appsTeamFile.components(separatedBy: "\n")
 
                 for line in allLines {
-                    devs.append(line)
-                    devs.sort()
+                    if !line.isEmpty {
+                        devs.append(line)
+                        devs.sort()
+
+                    }
                 }
                 return
             }
