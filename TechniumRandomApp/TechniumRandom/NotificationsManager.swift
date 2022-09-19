@@ -20,7 +20,13 @@ class NotificationsManager: ObservableObject {
     @Published var notificationsDisabled = false
 
 //    a custom type encompassing the time, whether daily/weekly and (if weekly) the day of the week
-    @Published var notification = Notification(notificationTime: Calendar.current.date(bySettingHour: 10, minute: 30, second: 0, of: Date()) ?? .now, frequency: .daily, dayOfWeek: .monday)
+    @Published var notification = Notification(notificationTime: Calendar.current.date(bySettingHour: 10, minute: 30, second: 0, of: Date()) ?? .now, frequency: .daily, dayOfWeek: .monday) {
+        didSet {
+            notificationNeedsUpdating = true
+        }
+    }
+
+    @Published var notificationNeedsUpdating = false
 
     init() {
 
@@ -31,17 +37,8 @@ class NotificationsManager: ObservableObject {
                 self.notification = Notification(notificationTime: loadedNotification.notificationTime, frequency: loadedNotification.frequency, dayOfWeek: loadedNotification.dayOfWeek)
             }
         }
+        self.requestAuthorisation()
 
-        // logic to check if notifications are enabled and if not disables the form
-        center.getNotificationSettings { settings in
-            switch settings.authorizationStatus {
-                case .denied:
-                    self.notificationsDisabled = true
-                default:
-                    //  the below function can only be performed ONCE, on the first time the app is opened
-                    self.requestAuthorisation()
-            }
-        }
     }
 
     func saveDate() {
@@ -57,11 +54,13 @@ class NotificationsManager: ObservableObject {
     //    a function that updates the UI based on whether the user has granted notificatins or not
     func checkAuthorisationStatus()  {
         center.getNotificationSettings { settings in
-            switch settings.authorizationStatus {
-                case .denied:
-                    self.notificationsDisabled = true
-                default:
-                    self.notificationsDisabled = false
+            DispatchQueue.main.async {
+                switch settings.authorizationStatus {
+                    case .denied:
+                        self.notificationsDisabled = true
+                    default:
+                        self.notificationsDisabled = false
+                }
             }
         }
     }
@@ -110,5 +109,6 @@ class NotificationsManager: ObservableObject {
 
         //    preserves UI
         saveDate()
+        notificationNeedsUpdating = false
     }
 }

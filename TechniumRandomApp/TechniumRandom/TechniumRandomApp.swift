@@ -9,6 +9,14 @@ import SwiftUI
 
 @main
 struct TechniumRandomApp: App {
+
+    private var delegate: NotificationDelegate = NotificationDelegate()
+
+    init() {
+        let center = UNUserNotificationCenter.current()
+        center.delegate = delegate
+    }
+
     var body: some Scene {
         WindowGroup {
             ContentView()
