@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AdviceView: View {
 
-    @StateObject var adviceManager = AdviceManager()
+    @StateObject var adviceManager = AdviceManager.shared
     @State private var taps = 0
 
     var body: some View {
@@ -23,15 +23,9 @@ struct AdviceView: View {
                         taps = 0
                     }
                 }
-//            Button {
-//                adviceManager.randomTechnium()
-//            } label: {
-//                Text("Random advice")
-//            }
         }
         .animation(.easeIn(duration: 1), value: adviceManager.current)
         .padding()
-        .onAppear(perform: adviceManager.randomTechnium)
     }
 }
 
