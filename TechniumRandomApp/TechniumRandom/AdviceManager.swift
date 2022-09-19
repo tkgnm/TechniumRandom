@@ -11,6 +11,7 @@ class AdviceManager: ObservableObject {
     
     @Published var all = [String]()
     @Published var current = ""
+    static let shared = AdviceManager()
 
     init() {
 
@@ -21,7 +22,7 @@ class AdviceManager: ObservableObject {
                 for line in allLines {
                     all.append(line)
                 }
-                current = all.randomElement() ?? "silkworm"
+                current = all.randomElement() ?? "About 99% of the time, the right time is right now."
                 return
             }
             fatalError("Could not load 103stripped.txt from bundle.")
@@ -29,7 +30,7 @@ class AdviceManager: ObservableObject {
     }
     
     func randomTechnium() {
-        current = all.randomElement() ?? all[0]
+        current = all.randomElement() ?? "About 99% of the time, the right time is right now."
     }
 }
 

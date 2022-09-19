@@ -15,7 +15,6 @@ struct TechniumRandomApp: App {
     init() {
         let center = UNUserNotificationCenter.current()
         center.delegate = delegate
-        
     }
 
     var body: some Scene {
