@@ -17,7 +17,7 @@ struct AboutView: View {
                 Text("Kev Sez")
                     .font(.title)
                     .padding()
-                Text("All advice you receive on this app was written by Kevin Kelly (b. 1952) and is avaiable for free on his website. This app aims to provide a simple interface for receiving Kevin's advice.")
+                Text("All advice you receive on this app was written by Kevin Kelly (b. 1952) and is available for free on his website. This app aims to provide a simple interface for receiving Kevin's advice.")
                     .padding()
                 Text("[Kevin Kelly's website](https://kk.org)")
                 Text("Credits")
