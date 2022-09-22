@@ -3,4 +3,102 @@
    uuid = "19776657-A5F7-4CC7-9056-08F4412BE0EE"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C46502B6-0BAA-4396-9E0E-9CD585437D12"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TechniumRandom/NotificationsManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "requestAuthorisation()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "C46502B6-0BAA-4396-9E0E-9CD585437D12 - 3ef1b4b9d45a3049"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TechniumRandom.NotificationsManager.requestAuthorisation() -&gt; ()"
+                  moduleName = "TechniumRandom"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Thomas_King/code/TechniumRandom/TechniumRandomApp/TechniumRandom/NotificationsManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "78"
+                  endingLineNumber = "78"
+                  offsetFromSymbolStart = "32">
+               </Location>
+               <Location
+                  uuid = "C46502B6-0BAA-4396-9E0E-9CD585437D12 - 765f2d07f255e376"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Bool, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in TechniumRandom.NotificationsManager.requestAuthorisation() -&gt; ()"
+                  moduleName = "TechniumRandom"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Thomas_King/code/TechniumRandom/TechniumRandomApp/TechniumRandom/NotificationsManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "79"
+                  endingLineNumber = "79"
+                  offsetFromSymbolStart = "88">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EA3A1EB2-F0F8-4F45-A6B4-7F72B21536A7"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TechniumRandom/NotificationsManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
+            landmarkName = "checkAuthorisationStatus()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "EA3A1EB2-F0F8-4F45-A6B4-7F72B21536A7 - baea8cf34bce0bc5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TechniumRandom.NotificationsManager.checkAuthorisationStatus() -&gt; ()"
+                  moduleName = "TechniumRandom"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Thomas_King/code/TechniumRandom/TechniumRandomApp/TechniumRandom/NotificationsManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "56"
+                  endingLineNumber = "56"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  uuid = "EA3A1EB2-F0F8-4F45-A6B4-7F72B21536A7 - b37356c983a06edc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.UNNotificationSettings) -&gt; () in TechniumRandom.NotificationsManager.checkAuthorisationStatus() -&gt; ()"
+                  moduleName = "TechniumRandom"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Thomas_King/code/TechniumRandom/TechniumRandomApp/TechniumRandom/NotificationsManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "57"
+                  endingLineNumber = "57"
+                  offsetFromSymbolStart = "168">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
