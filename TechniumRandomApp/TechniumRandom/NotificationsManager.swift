@@ -12,7 +12,7 @@ class NotificationsManager: ObservableObject {
 
     let center = UNUserNotificationCenter.current()
 
-//    users can pick from these options in the form
+//    users can pick from these options in SettingsView
     let timeUnits: [TimeUnit] = [.daily, .weekly]
     let daysOfWeek: [DayOfWeek] = [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday]
 
@@ -22,7 +22,18 @@ class NotificationsManager: ObservableObject {
 //    a custom type encompassing the time, whether daily/weekly and (if weekly) the day of the week
     @Published var notification = Notification(notificationTime: Calendar.current.date(bySettingHour: 10, minute: 30, second: 0, of: Date()) ?? .now, frequency: .daily, dayOfWeek: .monday) {
         didSet {
-            notificationNeedsUpdating = true
+
+            if let savedNotification = UserDefaults.standard.object(forKey: "notification") as? Data {
+                let decoder = JSONDecoder()
+                if let loadedNotification = try? decoder.decode(Notification.self, from: savedNotification) {
+                    if notification == loadedNotification {
+                        notificationNeedsUpdating = false
+                    } else {
+                        notificationNeedsUpdating = true
+                    }
+                }
+            }
+//            notificationNeedsUpdating = true
         }
     }
 

@@ -41,7 +41,7 @@ struct SettingsView: View {
                         }
                         .disabled(!notificationsManager.notificationNeedsUpdating)
                     } else {
-                        Text("You have disabled notifications. To change this, go to Settings > Kev Sez > Notifications and ensure that Allow Notifications is enabled")
+                        Text("You have disabled notifications. To change this, go to Settings > Kev Sez > Notifications.")
                     }
 
                 } header: {
