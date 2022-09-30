@@ -69,6 +69,7 @@ struct SettingsView: View {
                     notificationsManager.notificationsEnabled = false
                 }),
                 secondaryButton: .cancel(Text("Settings"), action: {
+                    notificationsManager.notificationsEnabled = false
                     notificationsManager.showAppSystemSettings()
                 })
             )

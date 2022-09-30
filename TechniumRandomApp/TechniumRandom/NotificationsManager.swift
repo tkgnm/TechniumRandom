@@ -36,17 +36,7 @@ class NotificationsManager: ObservableObject {
 //    a custom type encompassing the time, whether daily/weekly and (if weekly) the day of the week
     @Published var notification = Notification(notificationTime: Calendar.current.date(bySettingHour: 10, minute: 30, second: 0, of: Date()) ?? .now, frequency: .daily, dayOfWeek: .monday) {
         didSet {
-            if let savedNotification = UserDefaults.standard.object(forKey: "notification") as? Data {
-                let decoder = JSONDecoder()
-                if let loadedNotification = try? decoder.decode(Notification.self, from: savedNotification) {
-                    if notification == loadedNotification {
-                        notificationNeedsUpdating = false
-                    } else {
-                        notificationNeedsUpdating = true
-                    }
-                }
-            }
-            notificationNeedsUpdating = true
+            notificationNeedsUpdating = isNotificationTimeUpToDate()
         }
     }
 
@@ -101,6 +91,20 @@ class NotificationsManager: ObservableObject {
         if let appSettings = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(appSettings) {
             UIApplication.shared.open(appSettings)
         }
+    }
+
+    func isNotificationTimeUpToDate() -> Bool {
+        if let savedNotification = UserDefaults.standard.object(forKey: "notification") as? Data {
+            let decoder = JSONDecoder()
+            if let loadedNotification = try? decoder.decode(Notification.self, from: savedNotification) {
+                if notification == loadedNotification {
+                    return false
+                } else {
+                    return true
+                }
+            }
+        }
+        return true
     }
 
     // MARK: Notification center
