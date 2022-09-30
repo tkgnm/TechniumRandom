@@ -47,7 +47,6 @@ struct SettingsView: View {
                         }
                     if notificationsManager.notificationsDenied {
                         Text("You have disabled notifications. To change this, go to Settings > Kev Sez > Notifications.")
-
                     }
 
                 } header: {
@@ -62,6 +61,7 @@ struct SettingsView: View {
         .onChange(of: scenePhase) { newValue in
             if newValue == .active {
                 notificationsManager.checkAuthorisationStatus()
+                notificationsManager.evaluateNotifications()
             }
         }
     }

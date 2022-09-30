@@ -10,20 +10,21 @@ import UserNotifications
 
 class NotificationsManager: ObservableObject {
 
+//    MARK: Class properties
+
     let center = UNUserNotificationCenter.current()
 
 //    users can pick from these options in SettingsView
     let timeUnits: [TimeUnit] = [.daily, .weekly]
     let daysOfWeek: [DayOfWeek] = [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday]
 
-//   notifications are enabled by default but may change once the class has been initialised
-//   this variable is responsible for saying whether notification alerts were declined by the user
+//   this variable reflects whether notifications are allowed via notification centre
     @Published var notificationsDenied = false
 
-//  this variable allows the user to enable/disable notifications via the app, not the system
+//  this variable reflects whether the user has enabled notifications in the app
     @Published var notificationsEnabled = false {
-        willSet {
-            if newValue == true {
+        didSet {
+            if oldValue == false {
                 requestAuthorisation()
             } else {
                 cancelNotifications()
@@ -50,9 +51,9 @@ class NotificationsManager: ObservableObject {
 
     @Published var notificationNeedsUpdating = false
 
+    //    MARK: Class initialiser
 
     init() {
-
 //      checks to see if the user already has notification settings saved
         if let savedNotification = UserDefaults.standard.object(forKey: "notification") as? Data {
             let decoder = JSONDecoder()
@@ -60,11 +61,11 @@ class NotificationsManager: ObservableObject {
                 self.notification = Notification(notificationTime: loadedNotification.notificationTime, frequency: loadedNotification.frequency, dayOfWeek: loadedNotification.dayOfWeek)
             }
         }
-//        self.requestAuthorisation()
-
     }
 
-    func saveDate() {
+    //    MARK: Class methods
+
+    private func saveDate() {
         do {
             let encoder = JSONEncoder()
             let data = try encoder.encode(notification)
@@ -88,10 +89,13 @@ class NotificationsManager: ObservableObject {
             }
         }
     }
-    
-    func cancelNotifications() {
-        center.removePendingNotificationRequests(withIdentifiers: ["kevID"])
+
+    func evaluateNotifications() {
+        center.getPendingNotificationRequests { requests in
+            self.notificationsEnabled = requests.count > 0 ? true : false
+        }
     }
+
     // MARK: Notification center
 
     func requestAuthorisation() {
@@ -107,18 +111,13 @@ class NotificationsManager: ObservableObject {
         }
     }
 
-
     func scheduleNotification() {
         let content = UNMutableNotificationContent()
         content.title = "Kev has a bit of advice"
         content.subtitle = "... open for some fresh wisdom"
         content.sound = UNNotificationSound.default
 
-        // show this notification five seconds from now
-        //        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-
         var dateComponents = Calendar.current.dateComponents([.weekday, .hour, .minute], from: notification.notificationTime)
-
         if notification.frequency == .weekly {
             dateComponents.weekday = (daysOfWeek.firstIndex(of: notification.dayOfWeek) ?? 0) + 2
         } else {
@@ -127,12 +126,14 @@ class NotificationsManager: ObservableObject {
 
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
         let request = UNNotificationRequest(identifier: "kevID", content: content, trigger: trigger)
-
-        // add our notification request
         UNUserNotificationCenter.current().add(request)
 
         //    preserves UI
         saveDate()
         notificationNeedsUpdating = false
+    }
+
+    private func cancelNotifications() {
+        center.removeAllPendingNotificationRequests()
     }
 }
