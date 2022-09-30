@@ -12,12 +12,17 @@ struct SettingsView: View {
     @Environment(\.scenePhase) private var scenePhase
 
     @StateObject var notificationsManager = NotificationsManager()
+    @State private var notificationsDeniedAlert = false
 
     var body: some View {
         NavigationView {
             Form {
                 Section {
-                    Toggle("Enable notifications", isOn: $notificationsManager.notificationsEnabled)
+                    Toggle("Enable notifications", isOn: $notificationsManager.notificationsEnabled).onTapGesture {
+                        if notificationsManager.notificationsDenied {
+                            notificationsDeniedAlert = true
+                        }
+                    }
                     if notificationsManager.notificationsEnabled {
                         if !notificationsManager.notificationsDenied {
                             Picker("What frequency", selection: $notificationsManager.notification.frequency.animation()) {
@@ -34,7 +39,6 @@ struct SettingsView: View {
                                     }
                                 }
                             }
-
                             DatePicker("What time", selection: $notificationsManager.notification.notificationTime.animation(), displayedComponents: .hourAndMinute)
                             Button {
                                 notificationsManager.scheduleNotification()
@@ -43,21 +47,33 @@ struct SettingsView: View {
                             }
                             .disabled(!notificationsManager.notificationNeedsUpdating)
                         }
-
-                        }
-                    if notificationsManager.notificationsDenied {
-                        Text("You have disabled notifications. To change this, go to Settings > Kev Sez > Notifications.")
                     }
-
+                    if notificationsManager.notificationsDenied {
+                        Text("Notifications disabled")
+                            .foregroundColor(Color(.red))
+                        Button("Open settings") {
+                            notificationsManager.showAppSystemSettings()
+                        }
+                    }
                 } header: {
                     Text("notifications")
                 }
             }
         }
-
-//        updates UI based on whether notifications are enabled or not
+        //        updates UI based on whether notifications are enabled or not
         .onAppear(perform: notificationsManager.checkAuthorisationStatus)
-        .disabled(notificationsManager.notificationsDenied)
+        .alert(isPresented: $notificationsDeniedAlert, content: {
+            Alert(
+                title: Text("You have disabled notifications"),
+                message: Text("Turn on notifications in your apps settings"),
+                primaryButton: .default(Text("Okay"), action: {
+                    notificationsManager.notificationsEnabled = false
+                }),
+                secondaryButton: .cancel(Text("Settings"), action: {
+                    notificationsManager.showAppSystemSettings()
+                })
+            )
+        })
         .onChange(of: scenePhase) { newValue in
             if newValue == .active {
                 notificationsManager.checkAuthorisationStatus()

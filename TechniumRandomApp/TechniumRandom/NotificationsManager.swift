@@ -7,6 +7,7 @@
 
 import Foundation
 import UserNotifications
+import UIKit
 
 class NotificationsManager: ObservableObject {
 
@@ -93,6 +94,12 @@ class NotificationsManager: ObservableObject {
     func evaluateNotifications() {
         center.getPendingNotificationRequests { requests in
             self.notificationsEnabled = requests.count > 0 ? true : false
+        }
+    }
+
+    func showAppSystemSettings() {
+        if let appSettings = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(appSettings) {
+            UIApplication.shared.open(appSettings)
         }
     }
 
