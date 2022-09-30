@@ -48,15 +48,10 @@ struct SettingsView: View {
                             .disabled(!notificationsManager.notificationNeedsUpdating)
                         }
                     }
-                    if notificationsManager.notificationsDenied {
-                        Text("Notifications disabled")
-                            .foregroundColor(Color(.red))
-                        Button("Open settings") {
-                            notificationsManager.showAppSystemSettings()
-                        }
-                    }
                 } header: {
                     Text("notifications")
+                } footer: {
+                    Text( notificationsManager.notificationsDenied ? "You have disabled notifications" : "")
                 }
             }
         }
