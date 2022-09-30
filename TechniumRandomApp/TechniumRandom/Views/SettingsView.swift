@@ -57,6 +57,12 @@ struct SettingsView: View {
         }
         //        updates UI based on whether notifications are enabled or not
         .onAppear(perform: notificationsManager.checkAuthorisationStatus)
+        .onChange(of: scenePhase) { newValue in
+            if newValue == .active {
+                notificationsManager.checkAuthorisationStatus()
+                notificationsManager.evaluateNotifications()
+            }
+        }
         .alert(isPresented: $notificationsDeniedAlert, content: {
             Alert(
                 title: Text("You have disabled notifications"),
@@ -69,12 +75,6 @@ struct SettingsView: View {
                 })
             )
         })
-        .onChange(of: scenePhase) { newValue in
-            if newValue == .active {
-                notificationsManager.checkAuthorisationStatus()
-                notificationsManager.evaluateNotifications()
-            }
-        }
     }
 }
 
