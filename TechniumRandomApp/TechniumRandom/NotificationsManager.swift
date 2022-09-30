@@ -17,12 +17,23 @@ class NotificationsManager: ObservableObject {
     let daysOfWeek: [DayOfWeek] = [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday]
 
 //   notifications are enabled by default but may change once the class has been initialised
-    @Published var notificationsDisabled = false
+//   this variable is responsible for saying whether notification alerts were declined by the user
+    @Published var notificationsDenied = false
+
+//  this variable allows the user to enable/disable notifications via the app, not the system
+    @Published var notificationsEnabled = false {
+        willSet {
+            if newValue == true {
+                requestAuthorisation()
+            } else {
+                cancelNotifications()
+            }
+        }
+    }
 
 //    a custom type encompassing the time, whether daily/weekly and (if weekly) the day of the week
     @Published var notification = Notification(notificationTime: Calendar.current.date(bySettingHour: 10, minute: 30, second: 0, of: Date()) ?? .now, frequency: .daily, dayOfWeek: .monday) {
         didSet {
-
             if let savedNotification = UserDefaults.standard.object(forKey: "notification") as? Data {
                 let decoder = JSONDecoder()
                 if let loadedNotification = try? decoder.decode(Notification.self, from: savedNotification) {
@@ -33,11 +44,12 @@ class NotificationsManager: ObservableObject {
                     }
                 }
             }
-//            notificationNeedsUpdating = true
+            notificationNeedsUpdating = true
         }
     }
 
     @Published var notificationNeedsUpdating = false
+
 
     init() {
 
@@ -48,7 +60,7 @@ class NotificationsManager: ObservableObject {
                 self.notification = Notification(notificationTime: loadedNotification.notificationTime, frequency: loadedNotification.frequency, dayOfWeek: loadedNotification.dayOfWeek)
             }
         }
-        self.requestAuthorisation()
+//        self.requestAuthorisation()
 
     }
 
@@ -68,19 +80,18 @@ class NotificationsManager: ObservableObject {
             DispatchQueue.main.async {
                 switch settings.authorizationStatus {
                     case .denied:
-                        self.notificationsDisabled = true
+                        self.notificationsDenied = true
+                        self.notificationsEnabled  = false
                     default:
-                        self.notificationsDisabled = false
+                        self.notificationsDenied = false
                 }
             }
         }
     }
     
     func cancelNotifications() {
-        //        code to come
-        print("cancel notifications called")
+        center.removePendingNotificationRequests(withIdentifiers: ["kevID"])
     }
-
     // MARK: Notification center
 
     func requestAuthorisation() {
@@ -89,7 +100,9 @@ class NotificationsManager: ObservableObject {
                 print (error.localizedDescription)
             }
             if granted {
-                self.notificationsDisabled = false
+                DispatchQueue.main.async {
+                    self.notificationsDenied = false
+                }
             }
         }
     }
@@ -97,8 +110,8 @@ class NotificationsManager: ObservableObject {
 
     func scheduleNotification() {
         let content = UNMutableNotificationContent()
-        content.title = "Kev sez..."
-        content.subtitle = "Swipe for a bit of advice"
+        content.title = "Kev has a bit of advice"
+        content.subtitle = "... open for some fresh wisdom"
         content.sound = UNNotificationSound.default
 
         // show this notification five seconds from now

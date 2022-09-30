@@ -17,31 +17,37 @@ struct SettingsView: View {
         NavigationView {
             Form {
                 Section {
-                    if !notificationsManager.notificationsDisabled {
-                        Picker("What frequency", selection: $notificationsManager.notification.frequency.animation()) {
-                            ForEach(notificationsManager.timeUnits, id: \.self) { unit in
-                                Text(unit.rawValue.capitalized)
-                            }
-                        }
-                        .pickerStyle(.segmented)
-
-                        if notificationsManager.notification.frequency == .weekly {
-                            Picker("What day", selection: $notificationsManager.notification.dayOfWeek) {
-                                ForEach(notificationsManager.daysOfWeek, id: \.self) { day in
-                                    Text(day.rawValue.capitalized)
+                    Toggle("Enable notifications", isOn: $notificationsManager.notificationsEnabled)
+                    if notificationsManager.notificationsEnabled {
+                        if !notificationsManager.notificationsDenied {
+                            Picker("What frequency", selection: $notificationsManager.notification.frequency.animation()) {
+                                ForEach(notificationsManager.timeUnits, id: \.self) { unit in
+                                    Text(unit.rawValue.capitalized)
                                 }
                             }
+                            .pickerStyle(.segmented)
+
+                            if notificationsManager.notification.frequency == .weekly {
+                                Picker("What day", selection: $notificationsManager.notification.dayOfWeek) {
+                                    ForEach(notificationsManager.daysOfWeek, id: \.self) { day in
+                                        Text(day.rawValue.capitalized)
+                                    }
+                                }
+                            }
+
+                            DatePicker("What time", selection: $notificationsManager.notification.notificationTime.animation(), displayedComponents: .hourAndMinute)
+                            Button {
+                                notificationsManager.scheduleNotification()
+                            } label: {
+                                Text(notificationsManager.notificationNeedsUpdating ? "Update notifications" : "Notifications up to date")
+                            }
+                            .disabled(!notificationsManager.notificationNeedsUpdating)
                         }
 
-                        DatePicker("What time", selection: $notificationsManager.notification.notificationTime.animation(), displayedComponents: .hourAndMinute)
-                        Button {
-                            notificationsManager.scheduleNotification()
-                        } label: {
-                            Text(notificationsManager.notificationNeedsUpdating ? "Update notifications" : "Notifications up to date")
                         }
-                        .disabled(!notificationsManager.notificationNeedsUpdating)
-                    } else {
+                    if notificationsManager.notificationsDenied {
                         Text("You have disabled notifications. To change this, go to Settings > Kev Sez > Notifications.")
+
                     }
 
                 } header: {
@@ -52,7 +58,7 @@ struct SettingsView: View {
 
 //        updates UI based on whether notifications are enabled or not
         .onAppear(perform: notificationsManager.checkAuthorisationStatus)
-        .disabled(notificationsManager.notificationsDisabled)
+        .disabled(notificationsManager.notificationsDenied)
         .onChange(of: scenePhase) { newValue in
             if newValue == .active {
                 notificationsManager.checkAuthorisationStatus()
