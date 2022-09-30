@@ -24,29 +24,27 @@ struct SettingsView: View {
                         }
                     }
                     if notificationsManager.notificationsEnabled {
-                        if !notificationsManager.notificationsDenied {
-                            Picker("What frequency", selection: $notificationsManager.notification.frequency.animation()) {
-                                ForEach(notificationsManager.timeUnits, id: \.self) { unit in
-                                    Text(unit.rawValue.capitalized)
-                                }
+                        Picker("What frequency", selection: $notificationsManager.notification.frequency.animation()) {
+                            ForEach(notificationsManager.timeUnits, id: \.self) { unit in
+                                Text(unit.rawValue.capitalized)
                             }
-                            .pickerStyle(.segmented)
-
-                            if notificationsManager.notification.frequency == .weekly {
-                                Picker("What day", selection: $notificationsManager.notification.dayOfWeek) {
-                                    ForEach(notificationsManager.daysOfWeek, id: \.self) { day in
-                                        Text(day.rawValue.capitalized)
-                                    }
-                                }
-                            }
-                            DatePicker("What time", selection: $notificationsManager.notification.notificationTime.animation(), displayedComponents: .hourAndMinute)
-                            Button {
-                                notificationsManager.scheduleNotification()
-                            } label: {
-                                Text(notificationsManager.notificationNeedsUpdating ? "Update notifications" : "Notifications up to date")
-                            }
-                            .disabled(!notificationsManager.notificationNeedsUpdating)
                         }
+                        .pickerStyle(.segmented)
+
+                        if notificationsManager.notification.frequency == .weekly {
+                            Picker("What day", selection: $notificationsManager.notification.dayOfWeek) {
+                                ForEach(notificationsManager.daysOfWeek, id: \.self) { day in
+                                    Text(day.rawValue.capitalized)
+                                }
+                            }
+                        }
+                        DatePicker("What time", selection: $notificationsManager.notification.notificationTime.animation(), displayedComponents: .hourAndMinute)
+                        Button {
+                            notificationsManager.scheduleNotification()
+                        } label: {
+                            Text(notificationsManager.notificationNeedsUpdating ? "Update notifications" : "Notifications up to date")
+                        }
+                        .disabled(!notificationsManager.notificationNeedsUpdating)
                     }
                 } header: {
                     Text("notifications")
