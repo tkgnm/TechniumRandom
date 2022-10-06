@@ -39,12 +39,6 @@ struct SettingsView: View {
                             }
                         }
                         DatePicker("What time", selection: $notificationsManager.notification.notificationTime.animation(), displayedComponents: .hourAndMinute)
-                        Button {
-                            notificationsManager.scheduleNotification()
-                        } label: {
-                            Text(notificationsManager.notificationNeedsUpdating ? "Update notifications" : "Notifications up to date")
-                        }
-                        .disabled(!notificationsManager.notificationNeedsUpdating)
                     }
                 } header: {
                     Text("notifications")
@@ -54,7 +48,7 @@ struct SettingsView: View {
             }
         }
         //        updates UI based on whether notifications are enabled or not
-        .onAppear(perform: notificationsManager.checkAuthorisationStatus)
+        .onAppear(perform: notificationsManager.evaluateNotifications)
         .onChange(of: scenePhase) { newValue in
             if newValue == .active {
                 notificationsManager.checkAuthorisationStatus()

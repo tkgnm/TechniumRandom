@@ -19,18 +19,16 @@ class NotificationsManager: ObservableObject {
     let timeUnits: [TimeUnit] = [.daily, .weekly]
     let daysOfWeek: [DayOfWeek] = [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday]
 
-    var dontTriggerObservers = false
-
     //   this variable reflects whether notifications are allowed via notification centre
     @Published var notificationsDenied = false
 
     //  this variable reflects whether the user has enabled notifications in the app
     @Published var notificationsEnabled = false {
         willSet {
-            if !dontTriggerObservers {
+            if newValue != notificationsEnabled {
                 if newValue == true {
                     requestAuthorisation()
-                    notificationNeedsUpdating = true
+                    scheduleNotification()
                 } else {
                     cancelNotifications()
                 }
@@ -41,11 +39,9 @@ class NotificationsManager: ObservableObject {
     //    a custom type encompassing the time, whether daily/weekly and (if weekly) the day of the week
     @Published var notification = Notification(notificationTime: Calendar.current.date(bySettingHour: 10, minute: 30, second: 0, of: Date()) ?? .now, frequency: .daily, dayOfWeek: .monday) {
         didSet {
-            notificationNeedsUpdating = isNotificationTimeUpToDate()
+            scheduleNotification()
         }
     }
-
-    @Published var notificationNeedsUpdating = false
 
     //    MARK: Class initialiser
 
@@ -79,12 +75,9 @@ class NotificationsManager: ObservableObject {
                     case .denied:
                         self.notificationsDenied = true
                         self.notificationsEnabled  = false
-                        
                     default:
                         self.notificationsDenied = false
                         self.evaluateNotifications()
-//                        want to say true, but the fact is we don't know this. we'll have to set this elsewhere
-//                        self.notificationsEnabled = true
                 }
             }
         }
@@ -93,9 +86,7 @@ class NotificationsManager: ObservableObject {
     func evaluateNotifications() {
         center.getPendingNotificationRequests { requests in
             DispatchQueue.main.async {
-                self.dontTriggerObservers = true
                 self.notificationsEnabled = requests.count > 0 ? true : false
-                self.dontTriggerObservers = false
             }
         }
     }
@@ -154,7 +145,6 @@ class NotificationsManager: ObservableObject {
 
         //    preserves UI
         saveDate()
-        notificationNeedsUpdating = false
     }
 
     private func cancelNotifications() {

@@ -3,4 +3,70 @@
    uuid = "19776657-A5F7-4CC7-9056-08F4412BE0EE"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "14C12A0C-9E16-4CA5-BD5E-CF559549FE1A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TechniumRandom/Views/SettingsView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "14C12A0C-9E16-4CA5-BD5E-CF559549FE1A - f98571d2519d5212"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TechniumRandom.SettingsView.body.getter : some"
+                  moduleName = "TechniumRandom"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Thomas_King/code/TechniumRandom/TechniumRandomApp/TechniumRandom/Views/SettingsView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "776">
+               </Location>
+               <Location
+                  uuid = "14C12A0C-9E16-4CA5-BD5E-CF559549FE1A - 7d0f3503bf171e5a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "implicit closure #2 () -&gt; () in implicit closure #1 (TechniumRandom.NotificationsManager) -&gt; () -&gt; () in TechniumRandom.SettingsView.body.getter : some"
+                  moduleName = "TechniumRandom"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Thomas_King/code/TechniumRandom/TechniumRandomApp/TechniumRandom/Views/SettingsView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "32">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "44D1D521-BDCB-488B-83A8-CCC7BF7C28DD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TechniumRandom/NotificationsManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "checkAuthorisationStatus()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
