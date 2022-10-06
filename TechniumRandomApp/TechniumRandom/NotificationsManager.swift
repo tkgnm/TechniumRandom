@@ -19,16 +19,21 @@ class NotificationsManager: ObservableObject {
     let timeUnits: [TimeUnit] = [.daily, .weekly]
     let daysOfWeek: [DayOfWeek] = [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday]
 
+    var dontTriggerObservers = false
+
     //   this variable reflects whether notifications are allowed via notification centre
     @Published var notificationsDenied = false
 
     //  this variable reflects whether the user has enabled notifications in the app
     @Published var notificationsEnabled = false {
-        didSet {
-            if oldValue == false {
-                requestAuthorisation()
-            } else {
-                cancelNotifications()
+        willSet {
+            if !dontTriggerObservers {
+                if newValue == true {
+                    requestAuthorisation()
+                    notificationNeedsUpdating = true
+                } else {
+                    cancelNotifications()
+                }
             }
         }
     }
@@ -74,8 +79,12 @@ class NotificationsManager: ObservableObject {
                     case .denied:
                         self.notificationsDenied = true
                         self.notificationsEnabled  = false
+                        
                     default:
                         self.notificationsDenied = false
+                        self.evaluateNotifications()
+//                        want to say true, but the fact is we don't know this. we'll have to set this elsewhere
+//                        self.notificationsEnabled = true
                 }
             }
         }
@@ -84,7 +93,9 @@ class NotificationsManager: ObservableObject {
     func evaluateNotifications() {
         center.getPendingNotificationRequests { requests in
             DispatchQueue.main.async {
+                self.dontTriggerObservers = true
                 self.notificationsEnabled = requests.count > 0 ? true : false
+                self.dontTriggerObservers = false
             }
         }
     }
