@@ -34,7 +34,6 @@ struct AboutView: View {
     }
 
     func start() {
-
         if devs.count > 0 {
             return
         }

@@ -11,18 +11,18 @@ import UIKit
 
 class NotificationsManager: ObservableObject {
 
-//    MARK: Class properties
+    //    MARK: Class properties
 
     let center = UNUserNotificationCenter.current()
 
-//    users can pick from these options in SettingsView
+    //    users can pick from these options in SettingsView
     let timeUnits: [TimeUnit] = [.daily, .weekly]
     let daysOfWeek: [DayOfWeek] = [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday]
 
-//   this variable reflects whether notifications are allowed via notification centre
+    //   this variable reflects whether notifications are allowed via notification centre
     @Published var notificationsDenied = false
 
-//  this variable reflects whether the user has enabled notifications in the app
+    //  this variable reflects whether the user has enabled notifications in the app
     @Published var notificationsEnabled = false {
         didSet {
             if oldValue == false {
@@ -33,7 +33,7 @@ class NotificationsManager: ObservableObject {
         }
     }
 
-//    a custom type encompassing the time, whether daily/weekly and (if weekly) the day of the week
+    //    a custom type encompassing the time, whether daily/weekly and (if weekly) the day of the week
     @Published var notification = Notification(notificationTime: Calendar.current.date(bySettingHour: 10, minute: 30, second: 0, of: Date()) ?? .now, frequency: .daily, dayOfWeek: .monday) {
         didSet {
             notificationNeedsUpdating = isNotificationTimeUpToDate()
@@ -45,7 +45,7 @@ class NotificationsManager: ObservableObject {
     //    MARK: Class initialiser
 
     init() {
-//      checks to see if the user already has notification settings saved
+        //      checks to see if the user already has notification settings saved
         if let savedNotification = UserDefaults.standard.object(forKey: "notification") as? Data {
             let decoder = JSONDecoder()
             if let loadedNotification = try? decoder.decode(Notification.self, from: savedNotification) {
@@ -83,7 +83,9 @@ class NotificationsManager: ObservableObject {
 
     func evaluateNotifications() {
         center.getPendingNotificationRequests { requests in
-            self.notificationsEnabled = requests.count > 0 ? true : false
+            DispatchQueue.main.async {
+                self.notificationsEnabled = requests.count > 0 ? true : false
+            }
         }
     }
 
