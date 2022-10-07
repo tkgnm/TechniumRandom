@@ -24,11 +24,14 @@ class NotificationsManager: ObservableObject {
 
     //  this variable reflects whether the user has enabled notifications in the app
     @Published var notificationsEnabled = false {
-        didSet {
-            if oldValue == false {
-                requestAuthorisation()
-            } else {
-                cancelNotifications()
+        willSet {
+            if newValue != notificationsEnabled {
+                if newValue == true {
+                    requestAuthorisation()
+                    scheduleNotification()
+                } else {
+                    cancelNotifications()
+                }
             }
         }
     }
@@ -36,11 +39,9 @@ class NotificationsManager: ObservableObject {
     //    a custom type encompassing the time, whether daily/weekly and (if weekly) the day of the week
     @Published var notification = Notification(notificationTime: Calendar.current.date(bySettingHour: 10, minute: 30, second: 0, of: Date()) ?? .now, frequency: .daily, dayOfWeek: .monday) {
         didSet {
-            notificationNeedsUpdating = isNotificationTimeUpToDate()
+            scheduleNotification()
         }
     }
-
-    @Published var notificationNeedsUpdating = false
 
     //    MARK: Class initialiser
 
@@ -76,6 +77,7 @@ class NotificationsManager: ObservableObject {
                         self.notificationsEnabled  = false
                     default:
                         self.notificationsDenied = false
+                        self.evaluateNotifications()
                 }
             }
         }
@@ -143,7 +145,6 @@ class NotificationsManager: ObservableObject {
 
         //    preserves UI
         saveDate()
-        notificationNeedsUpdating = false
     }
 
     private func cancelNotifications() {
