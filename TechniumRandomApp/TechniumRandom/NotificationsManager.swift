@@ -67,7 +67,7 @@ class NotificationsManager: ObservableObject {
         }
     }
 
-    //    a function that updates the UI based on whether the user has granted notificatins or not
+    //    a function that updates the UI based on whether the user has granted notifications or not
     func checkAuthorisationStatus()  {
         center.getNotificationSettings { settings in
             DispatchQueue.main.async {
