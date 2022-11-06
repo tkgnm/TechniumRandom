@@ -40,6 +40,11 @@ struct SettingsView: View {
                         }
                         DatePicker("What time", selection: $notificationsManager.notification.notificationTime.animation(), displayedComponents: .hourAndMinute)
                     }
+                    #if DEBUG
+                    Button("Schedule test notification") {
+                        notificationsManager.scheduleTestNotification()
+                    }
+                    #endif
                 } header: {
                     Text("notifications")
                 } footer: {

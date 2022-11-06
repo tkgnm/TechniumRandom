@@ -127,10 +127,6 @@ class NotificationsManager: ObservableObject {
     }
 
     func scheduleNotification() {
-        let content = UNMutableNotificationContent()
-        content.title = "Kev has a bit of advice"
-        content.subtitle = "... open for some fresh wisdom"
-        content.sound = UNNotificationSound.default
 
         var dateComponents = Calendar.current.dateComponents([.weekday, .hour, .minute], from: notification.notificationTime)
         if notification.frequency == .weekly {
@@ -139,12 +135,33 @@ class NotificationsManager: ObservableObject {
             dateComponents.weekday = .none
         }
 
+        let content = createNotificationContent()
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+
         let request = UNNotificationRequest(identifier: "kevID", content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request)
 
         //    preserves UI
         saveDate()
+    }
+
+    func scheduleTestNotification() {
+        let content = createNotificationContent()
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+
+        let request = UNNotificationRequest(identifier: "kevID", content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request)
+
+        //    preserves UI
+        saveDate()
+    }
+
+    func createNotificationContent() -> UNMutableNotificationContent {
+        let content = UNMutableNotificationContent()
+        content.title = "Kev has a bit of advice"
+        content.subtitle = "... open for some fresh wisdom"
+        content.sound = UNNotificationSound.default
+        return content
     }
 
     private func cancelNotifications() {
