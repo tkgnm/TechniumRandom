@@ -9,7 +9,7 @@ import Foundation
 
 class AdviceManager: ObservableObject {
 
-//    @Published var all = [String]()
+    //    @Published var all = [String]()
     @Published var current = Advice(advice: "")
     static let shared = AdviceManager()
     let defaults = UserDefaults.standard
@@ -23,11 +23,12 @@ class AdviceManager: ObservableObject {
             if let hist = try? JSONDecoder().decode([Advice].self, from: data) {
                 history = hist
             }
+            current = history[0]
         } else {
             //  make history
             if let url = Bundle.main.url(forResource: "103stripped", withExtension: "txt") {
                 if let techniumFile = try? String(contentsOf: url) {
-
+                    
                     let allLines = techniumFile.components(separatedBy: "\n")
                     //        add all bits of advice to that history
                     for line in allLines {
@@ -37,18 +38,10 @@ class AdviceManager: ObservableObject {
                     }
                 }
 
-                //        set a new one for 'current' at random and assign it a date
-                history.shuffle()
-                history[0].dateRead = Date.now
-                current = history[0]
-
+                randomTechnium()
 
                 //         save the history
-                if let encoded = try? JSONEncoder().encode(history) {
-                    defaults.set(encoded, forKey: "adviceHistory")
-                }
 
-                randomTechnium()
                 return
             }
             fatalError("Could not load 103stripped.txt from bundle.")
@@ -56,6 +49,12 @@ class AdviceManager: ObservableObject {
     }
 
     func randomTechnium() {
-        current = history.randomElement()!
+        history.shuffle()
+        history[0].dateRead = Date.now
+        current = history[0]
+
+        if let encoded = try? JSONEncoder().encode(history) {
+            defaults.set(encoded, forKey: "adviceHistory")
+        }
     }
 }
