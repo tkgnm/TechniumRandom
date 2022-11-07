@@ -13,11 +13,11 @@ struct AdviceView: View {
 
     var body: some View {
         VStack {
-            Text(adviceManager.current)
+            Text(adviceManager.current.advice)
                 .frame(height: 500)
                 .onTapGesture(count: 5, perform: adviceManager.randomTechnium)
         }
-        .animation(.easeIn(duration: 1), value: adviceManager.current)
+        .animation(.easeIn(duration: 1), value: adviceManager.current.advice)
         .padding()
     }
 }

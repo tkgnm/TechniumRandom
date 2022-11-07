@@ -8,39 +8,54 @@
 import Foundation
 
 class AdviceManager: ObservableObject {
-    
-    @Published var all = [String]()
-    @Published var current = ""
+
+//    @Published var all = [String]()
+    @Published var current = Advice(advice: "")
     static let shared = AdviceManager()
     let defaults = UserDefaults.standard
-    
+
+    var history = [Advice]()
+
     init() {
-        
-        if let url = Bundle.main.url(forResource: "103stripped", withExtension: "txt") {
-            if let techniumFile = try? String(contentsOf: url) {
-                let allLines = techniumFile.components(separatedBy: "\n")
-                
-                for line in allLines {
-                    if !line.isEmpty {
-                        all.append(line)
+
+        //        check for history
+        if let data = defaults.object(forKey: "adviceHistory") as? Data {
+            if let hist = try? JSONDecoder().decode([Advice].self, from: data) {
+                history = hist
+            }
+        } else {
+            //  make history
+            if let url = Bundle.main.url(forResource: "103stripped", withExtension: "txt") {
+                if let techniumFile = try? String(contentsOf: url) {
+
+                    let allLines = techniumFile.components(separatedBy: "\n")
+                    //        add all bits of advice to that history
+                    for line in allLines {
+                        if !line.isEmpty {
+                            history.append(Advice(advice: line, dateRead: nil))
+                        }
                     }
                 }
 
-                if let savedTechnium = defaults.string(forKey: "current") {
-                    current = savedTechnium
-                } else {
-                    randomTechnium()
+                //        set a new one for 'current' at random and assign it a date
+                history.shuffle()
+                history[0].dateRead = Date.now
+                current = history[0]
+
+
+                //         save the history
+                if let encoded = try? JSONEncoder().encode(history) {
+                    defaults.set(encoded, forKey: "adviceHistory")
                 }
+
+                randomTechnium()
                 return
             }
             fatalError("Could not load 103stripped.txt from bundle.")
         }
     }
-    
-    func randomTechnium() {
-        current = all.randomElement() ?? "About 99% of the time, the right time is right now."
-        defaults.set(current, forKey: "current")
 
+    func randomTechnium() {
+        current = history.randomElement()!
     }
 }
-
