@@ -25,32 +25,41 @@ class AdviceManager: ObservableObject {
                 current = history[0]
             }
         } else {
-            //  make history
-            if let url = Bundle.main.url(forResource: "103stripped", withExtension: "txt") {
-                if let techniumFile = try? String(contentsOf: url) {
-                    
-                    let allLines = techniumFile.components(separatedBy: "\n")
-                    //        add all bits of advice to that history
-                    var idx = 0
-                    for line in allLines {
-                        if !line.isEmpty {
-                            history.append(Advice(id: idx, advice: line, dateRead: nil))
-                            idx += 1
-                        }
-                    }
-                }
-
-                //         save the history
-                randomTechnium()
-                return
-            }
-            fatalError("Could not load 103stripped.txt from bundle.")
+            createHistory()
         }
     }
 
+    func createHistory() {
+        if let url = Bundle.main.url(forResource: "103stripped", withExtension: "txt") {
+            if let techniumFile = try? String(contentsOf: url) {
+
+                let allLines = techniumFile.components(separatedBy: "\n")
+                //        add all bits of advice to that history
+                var idx = 0
+                for line in allLines {
+                    if !line.isEmpty {
+                        history.append(Advice(id: idx, advice: line, dateRead: nil))
+                        idx += 1
+                    }
+                }
+            }
+            //         save the history
+            randomTechnium()
+            return
+        }
+        fatalError("Could not load 103stripped.txt from bundle.")
+    }
+
     func randomTechnium() {
-        history.shuffle()
-        history[0].dateRead = Date.now
+        if history.allSatisfy( { $0.dateRead != nil }) {
+            //            reset code here
+            defaults.removeObject(forKey: "adviceHistory")
+        }
+
+        while history[0].dateRead != nil {
+            history.shuffle()
+            history[0].dateRead = Date.now
+        }
         current = history[0]
 
         history = history.sorted(by: { $0.dateRead?.compare($1.dateRead ?? Date.distantPast) == .orderedDescending })
