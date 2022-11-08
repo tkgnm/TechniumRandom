@@ -7,7 +7,14 @@
 
 import Foundation
 
- struct Advice: Codable {
-     let advice: String
-     var dateRead: Date?
- }
+struct Advice: Codable, Identifiable {
+    let id: Int
+    let advice: String
+    var dateRead: Date?
+
+    func dateAsString(_ dateRead: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YY/MM/dd"
+        return dateFormatter.string(from: dateRead)
+    }
+}
