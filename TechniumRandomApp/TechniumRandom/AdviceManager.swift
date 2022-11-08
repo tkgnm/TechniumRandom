@@ -9,15 +9,13 @@ import Foundation
 
 class AdviceManager: ObservableObject {
 
-    //    @Published var all = [String]()
-    @Published var current = Advice(id: 0, advice: "")
+    @Published var current = Advice(id: 0, advice: "About 99% of the time, the right time is right now.")
     static let shared = AdviceManager()
     let defaults = UserDefaults.standard
 
     var history = [Advice]()
 
     init() {
-
         //        check for history
         if let data = defaults.object(forKey: "adviceHistory") as? Data {
             if let hist = try? JSONDecoder().decode([Advice].self, from: data) {
@@ -43,7 +41,6 @@ class AdviceManager: ObservableObject {
                     }
                 }
             }
-            //         save the history
             randomTechnium()
             return
         }
@@ -54,12 +51,15 @@ class AdviceManager: ObservableObject {
         if history.allSatisfy( { $0.dateRead != nil }) {
             //            reset code here
             defaults.removeObject(forKey: "adviceHistory")
+            createHistory()
         }
 
         while history[0].dateRead != nil {
+//            look for a new bit of advice
             history.shuffle()
-            history[0].dateRead = Date.now
         }
+
+        history[0].dateRead = Date.now
         current = history[0]
 
         history = history.sorted(by: { $0.dateRead?.compare($1.dateRead ?? Date.distantPast) == .orderedDescending })
