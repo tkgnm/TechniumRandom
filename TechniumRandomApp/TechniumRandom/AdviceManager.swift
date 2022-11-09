@@ -12,14 +12,18 @@ class AdviceManager: ObservableObject {
     let defaults = UserDefaults.standard
     static let shared = AdviceManager()
 
-    var history = [Advice]()
+    var seenTechniums = [Advice]()
+    var unseenTechniums = [Advice]()
+    
     @Published var current = Advice(id: 0, advice: "About 99% of the time, the right time is right now.")
     @Published var techniumsUsedUp = false
 
     init() {
         if let data = defaults.object(forKey: "adviceHistory") as? Data {
             if let userHistory = try? JSONDecoder().decode([Advice].self, from: data) {
-                history = userHistory
+                seenTechniums = userHistory.filter({$0.dateRead != nil })
+                unseenTechniums = userHistory.filter({$0.dateRead == nil }).shuffled()
+                current = seenTechniums[0]
             }
         } else {
             createHistory()
@@ -32,7 +36,7 @@ class AdviceManager: ObservableObject {
                 let seperatedLines = techniumFile.components(separatedBy: "\n")
                 var idx = 0
                 for line in seperatedLines {
-                    history.append(Advice(id: idx, advice: line, dateRead: nil))
+                    unseenTechniums.append(Advice(id: idx, advice: line, dateRead: nil))
                     idx += 1
                 }
             }
@@ -43,19 +47,20 @@ class AdviceManager: ObservableObject {
     }
 
     func newTechnium() {
-        guard history.filter( { $0.dateRead == nil }).count != 0 else {
+        guard unseenTechniums.count != 0 else {
             techniumsUsedUp = true
             return
         }
 
-        let seenTechniums = history.filter({$0.dateRead != nil })
-        var unseenTechniums = history.filter({$0.dateRead == nil }).shuffled()
         unseenTechniums[0].dateRead = Date.now
-        history = unseenTechniums + seenTechniums
-        current = history[0]
-        history = history.sorted(by: { $0.dateRead?.compare($1.dateRead ?? Date.distantPast) == .orderedDescending })
+        current = unseenTechniums[0]
 
-        if let encoded = try? JSONEncoder().encode(history) {
+        seenTechniums.append(current)
+        unseenTechniums.removeFirst(1)
+        
+        seenTechniums = seenTechniums.sorted(by: { $0.dateRead?.compare($1.dateRead ?? Date.distantPast) == .orderedDescending })
+
+        if let encoded = try? JSONEncoder().encode(seenTechniums + unseenTechniums) {
             defaults.set(encoded, forKey: "adviceHistory")
         }
     }
