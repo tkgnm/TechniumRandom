@@ -14,6 +14,7 @@ class AdviceManager: ObservableObject {
     let defaults = UserDefaults.standard
 
     var history = [Advice]()
+    var seenTechniums = [Advice]()
 
     init() {
         //        check for history
@@ -63,6 +64,14 @@ class AdviceManager: ObservableObject {
         current = history[0]
 
         history = history.sorted(by: { $0.dateRead?.compare($1.dateRead ?? Date.distantPast) == .orderedDescending })
+
+        for technium in history {
+            if technium.dateRead != nil {
+                seenTechniums.append(technium)
+            }
+        }
+        seenTechniums = seenTechniums.compactMap { $0 }
+//        seenTechniums = history.removeAll(where: { $0.dateRead == nil })
 
         if let encoded = try? JSONEncoder().encode(history) {
             defaults.set(encoded, forKey: "adviceHistory")
