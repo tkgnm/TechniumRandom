@@ -22,6 +22,7 @@
 		CF8B65F728CBD0C100372CE2 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8B65F628CBD0C100372CE2 /* NotificationsManager.swift */; };
 		CF8B65F928CC2AEA00372CE2 /* AdviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8B65F828CC2AEA00372CE2 /* AdviceManager.swift */; };
 		CFA100AD28D490AB006869E3 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA100AC28D490AB006869E3 /* Notification.swift */; };
+		CFE3C928291C4BF9002D2E9D /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE3C927291C4BF9002D2E9D /* HistoryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		CF8B65F628CBD0C100372CE2 /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
 		CF8B65F828CC2AEA00372CE2 /* AdviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdviceManager.swift; sourceTree = "<group>"; };
 		CFA100AC28D490AB006869E3 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		CFE3C927291C4BF9002D2E9D /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				CF2CF57B28C7DCE100277CF2 /* AdviceView.swift */,
 				CF4007D328C7E89F00C7185D /* AboutView.swift */,
 				CF00D22428CA86C30045E36D /* SettingsView.swift */,
+				CFE3C927291C4BF9002D2E9D /* HistoryView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CF00D22528CA86C30045E36D /* SettingsView.swift in Sources */,
+				CFE3C928291C4BF9002D2E9D /* HistoryView.swift in Sources */,
 				CF4007D428C7E89F00C7185D /* AboutView.swift in Sources */,
 				CF8B65F728CBD0C100372CE2 /* NotificationsManager.swift in Sources */,
 				CF2CC3F728D8AFA80073C6DD /* TabBarController.swift in Sources */,

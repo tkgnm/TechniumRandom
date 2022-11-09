@@ -8,26 +8,32 @@
 import SwiftUI
 
 struct AdviceView: View {
-
+    
     @StateObject var adviceManager = AdviceManager.shared
-
+    @State private var showHistory = false
+    
     var body: some View {
-        ScrollView {
-            VStack {
-                Text(adviceManager.current.advice)
-                    .frame(height: 250)
-                    .onTapGesture(count: 5, perform: adviceManager.newTechnium)
-                ForEach(adviceManager.seenTechniums.dropFirst(1)) { technium in
-                    Text(technium.advice)
-                        .fontWeight(.light)
-                    Text(technium.dateAsString(technium.dateRead!))
-                        .fontWeight(.light)
+        NavigationView {
+            ScrollView {
+                VStack {
+                    Text(adviceManager.current.advice)
+                        .frame(height: 500)
+                        .onTapGesture(count: 5, perform: adviceManager.newTechnium)
                 }
-                .padding()
+            }
+            .animation(.easeIn(duration: 1), value: adviceManager.current.advice)
+            .padding()
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("History") {
+                        showHistory.toggle()
+                    }
+                }
+            }
+            .sheet(isPresented: $showHistory) {
+                HistoryView(history: adviceManager.seenTechniums)
             }
         }
-        .animation(.easeIn(duration: 1), value: adviceManager.current.advice)
-        .padding()
     }
 }
 
