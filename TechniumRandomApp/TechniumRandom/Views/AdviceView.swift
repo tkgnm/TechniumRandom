@@ -16,7 +16,7 @@ struct AdviceView: View {
         ScrollView {
             VStack {
                 Text(adviceManager.current.advice)
-                    .frame(height: 500)
+                    .frame(height: 250)
                     .onTapGesture(count: 5, perform: adviceManager.newTechnium)
                 ForEach(seenTechniums(from: adviceManager.history)) { technium in
                     Text(technium.advice)
@@ -31,8 +31,8 @@ struct AdviceView: View {
         .padding()
     }
 
-    func seenTechniums(from history: [Advice]) -> [Advice] {
-        history.filter({$0.dateRead != nil})
+    func seenTechniums(from history: [Advice]) -> Array<Advice>.SubSequence {
+        history.filter({$0.dateRead != nil}).dropFirst(1)
 
     }
 }
