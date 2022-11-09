@@ -10,6 +10,7 @@ import SwiftUI
 struct AdviceView: View {
 
     @StateObject var adviceManager = AdviceManager.shared
+    var seenTechniums = [Advice]()
 
     var body: some View {
         ScrollView {
@@ -18,7 +19,7 @@ struct AdviceView: View {
                 Text(adviceManager.current.advice)
                     .frame(height: 500)
                     .onTapGesture(count: 5, perform: adviceManager.randomTechnium)
-                ForEach(adviceManager.seenTechniums) { technium in
+                ForEach(seenTechniums(from: adviceManager.history)) { technium in
                     Text(technium.advice)
                         .fontWeight(.light)
                     Text(technium.dateAsString(technium.dateRead!))
@@ -29,6 +30,11 @@ struct AdviceView: View {
         }
         .animation(.easeIn(duration: 1), value: adviceManager.current.advice)
         .padding()
+    }
+
+    func seenTechniums(from history: [Advice]) -> [Advice] {
+        history.filter({$0.dateRead != nil})
+
     }
 }
 

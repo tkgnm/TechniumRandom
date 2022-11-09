@@ -9,38 +9,27 @@ import Foundation
 
 class AdviceManager: ObservableObject {
 
-    @Published var current = Advice(id: 0, advice: "About 99% of the time, the right time is right now.")
-    static let shared = AdviceManager()
-    let defaults = UserDefaults.standard
-
     var history = [Advice]()
-    var seenTechniums = [Advice]()
+    @Published var current = Advice(id: 0, advice: "About 99% of the time, the right time is right now.")
+
+    let defaults = UserDefaults.standard
+    static let shared = AdviceManager()
 
     init() {
-        //        check for history
         if let data = defaults.object(forKey: "adviceHistory") as? Data {
             if let hist = try? JSONDecoder().decode([Advice].self, from: data) {
                 history = hist
-                current = history[0]
             }
         } else {
             createHistory()
         }
     }
 
-    func createHistory() {
+    private func createHistory() {
         if let url = Bundle.main.url(forResource: "103stripped", withExtension: "txt") {
             if let techniumFile = try? String(contentsOf: url) {
-
-                let allLines = techniumFile.components(separatedBy: "\n")
-                //        add all bits of advice to that history
-                var idx = 0
-                for line in allLines {
-                    if !line.isEmpty {
-                        history.append(Advice(id: idx, advice: line, dateRead: nil))
-                        idx += 1
-                    }
-                }
+                let seperatedLines = techniumFile.components(separatedBy: "\n")
+                history = createAdviceArray(from: seperatedLines)
             }
             randomTechnium()
             return
@@ -48,15 +37,21 @@ class AdviceManager: ObservableObject {
         fatalError("Could not load 103stripped.txt from bundle.")
     }
 
-    func randomTechnium() {
-        if history.allSatisfy( { $0.dateRead != nil }) {
-            //            reset code here
-            defaults.removeObject(forKey: "adviceHistory")
-            createHistory()
+    private func createAdviceArray(from strArray: [String]) -> [Advice] {
+        var arr = [Advice]()
+        var idx = 0
+        for line in strArray {
+            arr.append(Advice(id: idx, advice: line, dateRead: nil))
+            idx += 1
         }
+        return arr
+    }
 
+    func randomTechnium() {
+        guard history.allSatisfy( { $0.dateRead != nil }) else { return }
+
+//        v inefficient. need to split into two arrays (like unseen techniums) and choose one at random
         while history[0].dateRead != nil {
-//            look for a new bit of advice
             history.shuffle()
         }
 
@@ -64,9 +59,6 @@ class AdviceManager: ObservableObject {
         current = history[0]
 
         history = history.sorted(by: { $0.dateRead?.compare($1.dateRead ?? Date.distantPast) == .orderedDescending })
-
-        seenTechniums = seenTechniums.compactMap { $0 }
-        seenTechniums = history.filter({$0.dateRead != nil})
 
         if let encoded = try? JSONEncoder().encode(history) {
             defaults.set(encoded, forKey: "adviceHistory")
