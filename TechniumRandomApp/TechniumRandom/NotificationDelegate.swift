@@ -13,7 +13,7 @@ class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
 
-        AdviceManager.shared.randomTechnium()
+        AdviceManager.shared.newTechnium()
         TabController.shared.open(.advice)
         completionHandler()
     }

@@ -14,19 +14,18 @@ struct AdviceView: View {
 
     var body: some View {
         ScrollView {
-
             VStack {
                 Text(adviceManager.current.advice)
                     .frame(height: 500)
-                    .onTapGesture(count: 5, perform: adviceManager.randomTechnium)
+                    .onTapGesture(count: 5, perform: adviceManager.newTechnium)
                 ForEach(seenTechniums(from: adviceManager.history)) { technium in
                     Text(technium.advice)
                         .fontWeight(.light)
                     Text(technium.dateAsString(technium.dateRead!))
                         .fontWeight(.light)
                 }
+                .padding()
             }
-            .padding()
         }
         .animation(.easeIn(duration: 1), value: adviceManager.current.advice)
         .padding()
