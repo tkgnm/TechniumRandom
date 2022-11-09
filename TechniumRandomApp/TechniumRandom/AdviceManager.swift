@@ -65,13 +65,8 @@ class AdviceManager: ObservableObject {
 
         history = history.sorted(by: { $0.dateRead?.compare($1.dateRead ?? Date.distantPast) == .orderedDescending })
 
-        for technium in history {
-            if technium.dateRead != nil {
-                seenTechniums.append(technium)
-            }
-        }
         seenTechniums = seenTechniums.compactMap { $0 }
-//        seenTechniums = history.removeAll(where: { $0.dateRead == nil })
+        seenTechniums = history.filter({$0.dateRead != nil})
 
         if let encoded = try? JSONEncoder().encode(history) {
             defaults.set(encoded, forKey: "adviceHistory")
