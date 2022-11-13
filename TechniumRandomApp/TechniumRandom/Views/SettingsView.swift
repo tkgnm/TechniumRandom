@@ -8,48 +8,46 @@
 import SwiftUI
 
 struct SettingsView: View {
-
+    
     @Environment(\.scenePhase) private var scenePhase
-
+    
     @StateObject var notificationsManager = NotificationsManager()
     @State private var notificationsDeniedAlert = false
-
+    
     var body: some View {
-        NavigationView {
-            Form {
-                Section {
-                    Toggle("Enable notifications", isOn: $notificationsManager.notificationsEnabled).onTapGesture {
-                        if notificationsManager.notificationsDenied {
-                            notificationsDeniedAlert = true
-                        }
+        Form {
+            Section {
+                Toggle("Enable notifications", isOn: $notificationsManager.notificationsEnabled).onTapGesture {
+                    if notificationsManager.notificationsDenied {
+                        notificationsDeniedAlert = true
                     }
-                    if notificationsManager.notificationsEnabled {
-                        Picker("What frequency", selection: $notificationsManager.notification.frequency.animation()) {
-                            ForEach(notificationsManager.timeUnits, id: \.self) { unit in
-                                Text(unit.rawValue.capitalized)
-                            }
-                        }
-                        .pickerStyle(.segmented)
-
-                        if notificationsManager.notification.frequency == .weekly {
-                            Picker("What day", selection: $notificationsManager.notification.dayOfWeek) {
-                                ForEach(notificationsManager.daysOfWeek, id: \.self) { day in
-                                    Text(day.rawValue.capitalized)
-                                }
-                            }
-                        }
-                        DatePicker("What time", selection: $notificationsManager.notification.notificationTime.animation(), displayedComponents: .hourAndMinute)
-                    }
-                    #if DEBUG
-                    Button("Schedule test notification") {
-                        notificationsManager.scheduleTestNotification()
-                    }
-                    #endif
-                } header: {
-                    Text("notifications")
-                } footer: {
-                    Text( notificationsManager.notificationsDenied ? "You have disabled notifications" : "")
                 }
+                if notificationsManager.notificationsEnabled {
+                    Picker("What frequency", selection: $notificationsManager.notification.frequency.animation()) {
+                        ForEach(notificationsManager.timeUnits, id: \.self) { unit in
+                            Text(unit.rawValue.capitalized)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                    
+                    if notificationsManager.notification.frequency == .weekly {
+                        Picker("What day", selection: $notificationsManager.notification.dayOfWeek) {
+                            ForEach(notificationsManager.daysOfWeek, id: \.self) { day in
+                                Text(day.rawValue.capitalized)
+                            }
+                        }
+                    }
+                    DatePicker("What time", selection: $notificationsManager.notification.notificationTime.animation(), displayedComponents: .hourAndMinute)
+                }
+#if DEBUG
+                Button("Schedule test notification") {
+                    notificationsManager.scheduleTestNotification()
+                }
+#endif
+            } header: {
+                Text("notifications")
+            } footer: {
+                Text( notificationsManager.notificationsDenied ? "You have disabled notifications" : "")
             }
         }
         //        updates UI based on whether notifications are enabled or not
