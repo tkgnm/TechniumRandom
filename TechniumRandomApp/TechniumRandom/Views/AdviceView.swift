@@ -14,19 +14,19 @@ struct AdviceView: View {
     
     var body: some View {
         NavigationView {
-            ScrollView {
-                VStack {
-                    Text(adviceManager.current.advice)
-                        .frame(height: 500)
-                        .onTapGesture(count: 5, perform: adviceManager.newTechnium)
-                }
+            VStack {
+                Text(adviceManager.current.advice)
+                    .frame(height: 500)
+                    .onTapGesture(count: 5, perform: adviceManager.newTechnium)
             }
             .animation(.easeIn(duration: 1), value: adviceManager.current.advice)
             .padding()
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("History") {
+                    Button {
                         showHistory.toggle()
+                    } label: {
+                        Label("History", systemImage: "clock")
                     }
                 }
             }
