@@ -121,13 +121,13 @@ class NotificationsManager: ObservableObject {
             if granted {
                 DispatchQueue.main.async {
                     self.notificationsDenied = false
+                    self.scheduleNotification()
                 }
             }
         }
     }
 
     func scheduleNotification() {
-
         var dateComponents = Calendar.current.dateComponents([.weekday, .hour, .minute], from: notification.notificationTime)
         if notification.frequency == .weekly {
             dateComponents.weekday = (daysOfWeek.firstIndex(of: notification.dayOfWeek) ?? 0) + 2
@@ -143,6 +143,7 @@ class NotificationsManager: ObservableObject {
 
         //    preserves UI
         saveDate()
+        evaluateNotifications()
     }
 
     func scheduleTestNotification() {

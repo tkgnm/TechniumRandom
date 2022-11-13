@@ -13,12 +13,31 @@ struct HistoryView: View {
     var history: [Advice]
 
     var body: some View {
-        List {
-            ForEach(history) { technium in
-            VStack {
-                    Text(technium.advice)
-                    Text(technium.dateAsString(technium.dateRead!))
-                        .fontWeight(.light)
+        Section {
+            List {
+                Section {
+                    ForEach(history) { technium in
+                        VStack {
+                            Text(technium.advice)
+                            Text(technium.dateAsString(technium.dateRead!))
+                                .frame(alignment: .trailing)
+                                .font(.caption)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                        }
+                    }
+                } header: {
+                    Text("Unlocked techniums")
+                }
+                if history.count < 2 {
+                    Section {
+                        Text("You've only unlocked \(history.count) techniums. To get more, turn on notifications.")
+                        Button {
+                            dismiss()
+                            TabController.shared.open(.settings)
+                        } label: {
+                            Text("Notifications settings")
+                        }
+                    }
                 }
             }
         }
