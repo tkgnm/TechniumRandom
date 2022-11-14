@@ -21,6 +21,7 @@
 		CF65FA552919C02D00F38283 /* Advice.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF65FA542919C02D00F38283 /* Advice.swift */; };
 		CF8B65F728CBD0C100372CE2 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8B65F628CBD0C100372CE2 /* NotificationsManager.swift */; };
 		CF8B65F928CC2AEA00372CE2 /* AdviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8B65F828CC2AEA00372CE2 /* AdviceManager.swift */; };
+		CF9AFFAF2922B18500BE2659 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9AFFAE2922B18500BE2659 /* HelpView.swift */; };
 		CFA100AD28D490AB006869E3 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA100AC28D490AB006869E3 /* Notification.swift */; };
 		CFE3C928291C4BF9002D2E9D /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE3C927291C4BF9002D2E9D /* HistoryView.swift */; };
 /* End PBXBuildFile section */
@@ -41,6 +42,7 @@
 		CF65FA542919C02D00F38283 /* Advice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Advice.swift; sourceTree = "<group>"; };
 		CF8B65F628CBD0C100372CE2 /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
 		CF8B65F828CC2AEA00372CE2 /* AdviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdviceManager.swift; sourceTree = "<group>"; };
+		CF9AFFAE2922B18500BE2659 /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
 		CFA100AC28D490AB006869E3 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		CFE3C927291C4BF9002D2E9D /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -107,6 +109,7 @@
 				CF4007D328C7E89F00C7185D /* AboutView.swift */,
 				CF00D22428CA86C30045E36D /* SettingsView.swift */,
 				CFE3C927291C4BF9002D2E9D /* HistoryView.swift */,
+				CF9AFFAE2922B18500BE2659 /* HelpView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -184,6 +187,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CF00D22528CA86C30045E36D /* SettingsView.swift in Sources */,
+				CF9AFFAF2922B18500BE2659 /* HelpView.swift in Sources */,
 				CFE3C928291C4BF9002D2E9D /* HistoryView.swift in Sources */,
 				CF4007D428C7E89F00C7185D /* AboutView.swift in Sources */,
 				CF8B65F728CBD0C100372CE2 /* NotificationsManager.swift in Sources */,

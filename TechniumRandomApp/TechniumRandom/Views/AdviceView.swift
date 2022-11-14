@@ -18,21 +18,24 @@ struct AdviceView: View {
                 Text(adviceManager.current.advice)
                     .frame(height: 500)
                     .onTapGesture(count: 5, perform: adviceManager.newTechnium)
+                Button("Show history") {
+                    showHistory.toggle()
+                }
             }
             .animation(.easeIn(duration: 1), value: adviceManager.current.advice)
             .padding()
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        showHistory.toggle()
+                    NavigationLink {
+                        HistoryView(history: adviceManager.seenTechniums)
                     } label: {
                         Label("History", systemImage: "clock")
                     }
                 }
             }
-            .sheet(isPresented: $showHistory) {
-                HistoryView(history: adviceManager.seenTechniums)
-            }
+        }
+        .sheet(isPresented: $showHistory) {
+            HelpView()
         }
     }
 }

@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct SettingsView: View {
-    
+
     @Environment(\.scenePhase) private var scenePhase
-    
+
     @StateObject var notificationsManager = NotificationsManager()
     @State private var notificationsDeniedAlert = false
-    
+
     var body: some View {
         Form {
             Section {
@@ -29,7 +29,7 @@ struct SettingsView: View {
                         }
                     }
                     .pickerStyle(.segmented)
-                    
+
                     if notificationsManager.notification.frequency == .weekly {
                         Picker("What day", selection: $notificationsManager.notification.dayOfWeek) {
                             ForEach(notificationsManager.daysOfWeek, id: \.self) { day in
@@ -39,11 +39,11 @@ struct SettingsView: View {
                     }
                     DatePicker("What time", selection: $notificationsManager.notification.notificationTime.animation(), displayedComponents: .hourAndMinute)
                 }
-#if DEBUG
+                #if DEBUG
                 Button("Schedule test notification") {
                     notificationsManager.scheduleTestNotification()
                 }
-#endif
+                #endif
             } header: {
                 Text("notifications")
             } footer: {
@@ -61,7 +61,7 @@ struct SettingsView: View {
         .alert(isPresented: $notificationsDeniedAlert, content: {
             Alert(
                 title: Text("You have disabled notifications"),
-                message: Text("Turn on notifications in your apps settings"),
+                message: Text("Turn on notifications by going into your apps system settings."),
                 primaryButton: .default(Text("Okay"), action: {
                     notificationsManager.notificationsEnabled = false
                 }),

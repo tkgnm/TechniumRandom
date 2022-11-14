@@ -20,24 +20,13 @@ struct HistoryView: View {
                         VStack {
                             Text(technium.advice)
                             Text(technium.dateAsString(technium.dateRead!))
-                                .frame(alignment: .trailing)
+//                                .frame(alignment: .trailing)
                                 .font(.caption)
                                 .frame(maxWidth: .infinity, alignment: .trailing)
                         }
                     }
                 } header: {
                     Text("Unlocked techniums")
-                }
-                if history.count < 2 {
-                    Section {
-                        Text("You've only unlocked \(history.count) techniums. To get more, turn on notifications.")
-                        Button {
-                            dismiss()
-                            TabController.shared.open(.settings)
-                        } label: {
-                            Text("Notifications settings")
-                        }
-                    }
                 }
             }
         }
