@@ -19,8 +19,10 @@ struct HistoryView: View {
                     ForEach(history) { technium in
                         VStack {
                             Text(technium.advice)
+                                .frame(
+                                    maxWidth: .infinity,
+                                    alignment: .leading)
                             Text(technium.stringFrom(date: technium.dateRead ?? Date.now))
-//                                .frame(alignment: .trailing)
                                 .font(.caption)
                                 .frame(maxWidth: .infinity, alignment: .trailing)
                         }
