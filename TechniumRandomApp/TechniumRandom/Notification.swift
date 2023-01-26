@@ -16,9 +16,7 @@ enum TimeUnit: String, Codable {
 }
 
 struct Notification: Codable, Equatable {
-
     var notificationTime: Date
     var frequency: TimeUnit
     var dayOfWeek: DayOfWeek
-    
 }

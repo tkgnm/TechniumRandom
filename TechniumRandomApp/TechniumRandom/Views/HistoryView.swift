@@ -35,8 +35,8 @@ struct HistoryView: View {
 
 struct HistoryView_Previews: PreviewProvider {
     static var previews: some View {
-        HistoryView(history: [Advice(id: 1, advice: "Advice 1", dateRead: Date.now),
-                              Advice(id: 2, advice: "Advice 2", dateRead: Date.now),
-                              Advice(id: 3, advice: "Advice 3", dateRead: Date.now)])
+        HistoryView(history: [Advice(id: 1, advice: "About 99% of the time, the right time is right now.", dateRead: Date.now),
+                              Advice(id: 2, advice: "No one is as impressed with your possessions as you are.", dateRead: Date.now),
+                              Advice(id: 3, advice: "Dont ever work for someone you dont want to become.", dateRead: Date.now)])
     }
 }
