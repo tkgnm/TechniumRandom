@@ -12,7 +12,7 @@ struct Advice: Codable, Identifiable {
     let advice: String
     var dateRead: Date?
 
-    func dateAsString(_ date: Date) -> String {
+    func stringFrom(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YY/MM/dd"
         return dateFormatter.string(from: date)
