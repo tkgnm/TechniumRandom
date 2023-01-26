@@ -15,19 +15,16 @@ struct ContentView: View {
         TabView(selection: $tabController.activeTab) {
             AdviceView()
                 .tag(Tab.advice)
-                .padding()
                 .tabItem {
                     Label("Advice", systemImage: "cloud.fill")
                 }
             AboutView()
                 .tag(Tab.about)
-                .padding()
                 .tabItem {
                     Label("About", systemImage: "person.3.fill")
                 }
             SettingsView()
                 .tag(Tab.settings)
-                .padding()
                 .tabItem {
                     Label("Settings", systemImage: "gear")
                 }
