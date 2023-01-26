@@ -29,6 +29,7 @@ struct AboutView: View {
                     Text(dev)
                 }
             }
+            .padding()
         }
         .onAppear(perform: start)
     }

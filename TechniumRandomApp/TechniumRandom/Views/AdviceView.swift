@@ -10,17 +10,13 @@ import SwiftUI
 struct AdviceView: View {
     
     @StateObject var adviceManager = AdviceManager.shared
-    @State private var showHistory = false
-    
+
     var body: some View {
         NavigationView {
             VStack {
                 Text(adviceManager.current.advice)
                     .frame(height: 500)
                     .onTapGesture(count: 5, perform: adviceManager.newTechnium)
-                Button("Show history") {
-                    showHistory.toggle()
-                }
             }
             .animation(.easeIn(duration: 1), value: adviceManager.current.advice)
             .padding()
@@ -33,9 +29,6 @@ struct AdviceView: View {
                     }
                 }
             }
-        }
-        .sheet(isPresented: $showHistory) {
-            HelpView()
         }
     }
 }
